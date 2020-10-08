@@ -13,7 +13,7 @@
         </select>
     </div>
     <div class="col-sm-3">
-        <input class="w-100" type="@(indexSelect == 1 ? "number" : "text")" @bind="criterioDeBusqueda"/>
+        <input class="form-control w-100" type="@(indexSelect == 1 ? "number" : "text")" @bind="criterioDeBusqueda"/>
     </div>
     <div class="col-sm-2">
         <button class="btn btn-outline-primary" @onclick="FiltrarProductos">Buscar</button>
