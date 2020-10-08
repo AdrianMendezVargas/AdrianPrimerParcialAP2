@@ -21,6 +21,7 @@ namespace AdrianPrimerParcialAP2.BLL {
             Contexto contexto = new Contexto();
 
             try {
+                producto.Id = 0;
                 contexto.Productos.Add(producto);
                 paso = await contexto.SaveChangesAsync() > 0;
             } catch (Exception) {
