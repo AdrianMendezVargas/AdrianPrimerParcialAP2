@@ -1,55 +1,63 @@
 ﻿@page "/consulta-productos"
 @inject NavigationManager Nav
 
-<div class="form-row mb-3">
-    <div class="col-sm-4">
-        <h3>Consulta Productos</h3>
+    <div class="container">
+        <div class="card shadow-lg">
+            <div class="card-header bg-info">
+                <div class="form-row mb-3 mt-3">
+                    <div class="col-sm-4">
+                        <h3>Consulta Productos</h3>
+                    </div>
+                    <div class="col-sm-3">
+                        <select @bind="indexSelect" class="custom-select">
+                            <option value="0">Filtrar por</option>
+                            <option value="1">ProductoId</option>
+                            <option value="2">Descripcion</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-control w-100" type="@(indexSelect == 1 ? "number" : "text")" @bind="criterioDeBusqueda" />
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-dark" @onclick="FiltrarProductos">Buscar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                @if (Productos == null || ProductosFiltrados == null) {
+                    <div>
+                        <h4>Cargando...</h4>
+                    </div>
+                } else {
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Producto Id</th>
+                                <th>Descripcion</th>
+                                <th>Precio</th>
+                                <th>Existencia</th>
+                                <th>Valor Inventario</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var producto in ProductosFiltrados) {
+                                <tr>
+                                    <td>@producto.Id</td>
+                                    <td>@producto.Descripcion</td>
+                                    <td>@string.Format("{0:c}" , producto.Precio)</td>
+                                    <td>@producto.Existencia</td>
+                                    <td>@string.Format("{0:c}" , producto.ValorInventario)</td>
+                                    <td><button @onclick="()=>VerProducto(producto.Id)" class="btn btn-outline-info">Ver</button></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
     </div>
-    <div class="col-sm-3">
-        <select @bind="indexSelect" class="custom-select">
-            <option value="0">Filtrar por</option>
-            <option value="1">ProductoId</option>
-            <option value="2">Descripcion</option>
-        </select>
-    </div>
-    <div class="col-sm-3">
-        <input class="form-control w-100" type="@(indexSelect == 1 ? "number" : "text")" @bind="criterioDeBusqueda"/>
-    </div>
-    <div class="col-sm-2">
-        <button class="btn btn-outline-primary" @onclick="FiltrarProductos">Buscar</button>
-    </div>
-</div>
 
-@if (Productos == null || ProductosFiltrados == null) {
-    <div>
-        <h4>Cargando...</h4>
-    </div>
-} else {
-    <table class="table table-hover">
-        <thead class="thead-light">
-            <tr>
-                <th>Producto Id</th>
-                <th>Descripcion</th>
-                <th>Precio</th>
-                <th>Existencia</th>
-                <th>Valor Inventario</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var producto in ProductosFiltrados) {
-            <tr>
-                <td>@producto.Id</td>
-                <td>@producto.Descripcion</td>
-                <td>@string.Format("{0:c}" , producto.Precio)</td>
-                <td>@producto.Existencia</td>
-                <td>@string.Format("{0:c}" , producto.ValorInventario)</td>
-                <td><button @onclick="()=>VerProducto(producto.Id)" class="btn btn-warning">Ver</button></td>
-            </tr>
-            }
-        </tbody>
-    </table>
-}
 
 @code {
 
