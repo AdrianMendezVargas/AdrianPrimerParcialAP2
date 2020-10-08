@@ -1,4 +1,6 @@
 ﻿@page "/registro-productos"
+@page "/registro-productos/{productoId:int}"
+
 @inject IToastService toast
 
 <div class="container">
@@ -62,6 +64,15 @@
 
 @code {
     Producto producto = new Producto();
+
+    [Parameter] public int productoId { get; set; }
+
+
+    protected override async Task OnParametersSetAsync() {
+        if (productoId > 0) {
+            producto = await ProductosBLL.Buscar(productoId);
+        }
+    }
 
     void Nuevo() => producto = new Producto();
 
