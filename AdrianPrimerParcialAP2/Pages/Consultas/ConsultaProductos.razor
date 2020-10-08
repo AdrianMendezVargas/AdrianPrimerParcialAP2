@@ -31,17 +31,18 @@
                 <th>Descripcion</th>
                 <th>Precio</th>
                 <th>Existencia</th>
-
+                <th>Valor Inventario</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var producto in ProductosFiltrados) {
-                <tr>
-                    <td>@producto.Id</td>
-                    <td>@producto.Descripcion</td>
-                    <td>@string.Format("{0:c}" , producto.Precio)</td>
-                    <td>@producto.Existencia</td>
-                </tr>
+            <tr>
+                <td>@producto.Id</td>
+                <td>@producto.Descripcion</td>
+                <td>@string.Format("{0:c}" , producto.Precio)</td>
+                <td>@producto.Existencia</td>
+                <td>@string.Format("{0:c}" , producto.ValorInventario)</td>
+            </tr>
             }
         </tbody>
     </table>
